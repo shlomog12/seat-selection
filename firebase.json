@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/seat-selection/browser",  // עדכון הנתיב כאן
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
