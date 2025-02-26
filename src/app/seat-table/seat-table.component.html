@@ -5,25 +5,26 @@
 
   <!-- שאר השורות -->
   <div class="row">
-    <div class="column">
+    <div class="column col-left">
       <div class="table" *ngFor="let table of column1">
         <div *ngFor="let seat of table" class="seat"
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
-          (touchend)="toggleSeat(seat)"
           id="{{seat.number}}">
           {{ seat.number }}
         </div>
       </div>
     </div>
 
+    <div class="space front-left-space"></div>
+    <div class="space front-right-space"></div>
+
     <!-- רווח בין העמודות האמצעיות -->
-    <div class="column left_right">
+    <div class="column col-left-right">
       <div class="table" *ngFor="let table of column2">
         <div *ngFor="let seat of table" class="seat"
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
-          (touchend)="toggleSeat(seat)"
           id="{{seat.number}}">
           {{ seat.number }}
         </div>
@@ -31,20 +32,20 @@
     </div>
 
     <!-- מעבר מרווח עם הבמה -->
-    <div class="spacer right_lefts"></div>
+    <!-- <div class="spacer "></div> -->
     <div class="aron_stage">
       <div class="aron-kodesh">ארון קודש</div>
       <div class="stage">במה</div>
     </div>
-    <div class="spacer"></div>
-
+    <!-- <div class="spacer"></div> -->
+    <!-- <div class="space back-left-space"></div>
+    <div class="space back-right-space"></div> -->
     <!-- עמודה שלישית -->
-    <div class="column left_right">
+    <div class="column col-right-left">
       <div class="table" *ngFor="let table of column3">
         <div *ngFor="let seat of table" class="seat"
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
-          (touchend)="toggleSeat(seat)"
           id="{{seat.number}}">
           {{ seat.number }}
         </div>
@@ -52,12 +53,11 @@
     </div>
 
     <!-- עמודה רביעית -->
-    <div class="column">
+    <div class="column col-right">
       <div class="table" *ngFor="let table of column4">
         <div *ngFor="let seat of table" class="seat"
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
-          (touchend)="toggleSeat(seat)"
           id="{{seat.number}}">
           {{ seat.number }}
         </div>
@@ -69,6 +69,7 @@
    <div class="partition-container">
      <div class="partition">מחיצה</div>
    </div>
+   <div class="wall"></div>
    <div class="bottom">
     <div class="buttons">
       <div class="select-group-btns">
@@ -85,7 +86,5 @@
         <button class="submit-btn btn" (click)="submitSelection()">הגש בחירה</button>
       </div>
     </div>
-     <div class="wall"></div>
-    <div class="womens-aid">עזרת נשים</div>
    </div>
 </div>

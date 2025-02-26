@@ -2,50 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  gap: 20px;
-}
-
-.row {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
+  padding: 10px;
   gap: 10px;
-}
-
-.spacer {
-  width: 80px; /* יצירת מעבר מרווח */
-}
-
-.table {
-  display: flex;
-  gap: 5px;
-  background: #f0f0f0;
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid black;
-}
-
-.seat {
-  width: 40px;
-  height: 40px;
-  background-color: lightgray;
-  border: 1px solid black;
-  text-align: center;
-  line-height: 40px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 14px;
-}
-
-.seat.selected {
-  background-color: blue;
-  color: white;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .aron-kodesh {
@@ -67,25 +27,143 @@
   margin: auto;
   width: 80px;
   height: 80px;
-  display: flex
-;
+  display: flex;
   justify-content: center;
   flex-direction: column;
 }
 
-.partition {
-  background: yellow;
-  text-align: center;
-  padding: 10px;
-  font-weight: bold;
-  border-radius: 5px;
-  border: 2px solid black;
-  width: 600px;
-  float: right;
+
+/* ✅ כאן נגדיר את הפריסה עם Grid Areas */
+.row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+    grid-template-areas: 
+    "col-left front-left-space  aron_stage    front-right-space col-right"
+    "col-left col-left_right    aron_stage    col-right-left    col-right"
+    "col-left back-left-space   aron_stage    back-right-space  col-right";
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
 }
 
-.partition-container{
-  width: 100%;
+.space{
+  width: 200px;
+  height: 150px;
+}
+
+.front-left-space{
+  grid-area: front-left-space;
+}
+.front-right-space{
+  grid-area: front-right-space;
+}
+.back-left-space{
+  grid-area: back-left-space;
+}
+.back-right-space{
+  grid-area: back-right-space;
+}
+
+.col-left{
+  grid-area: col-left;
+}
+
+.col-left_right{
+  grid-area: col-left-right;
+}
+.col-right-left{
+  grid-area: col-right-left;
+}
+.col-right{
+  grid-area: col-right;
+}
+
+.aron_stage{
+  grid-area: aron_stage;
+  display: flex;
+  flex-direction: column;
+}
+
+.column{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.wall{
+  height: 220px;
+  background-color: #6a6a6a;
+  width: 30px;
+}
+
+/* נגדיר לכל עמודה את המיקום שלה ב-Grid */
+// .column:nth-child(1) { grid-area: col1; }
+// .column:nth-child(2) { grid-area: col2; }
+// .column:nth-child(3) { grid-area: col3; }
+// .column:nth-child(4) { grid-area: col4; }
+// .spacer:nth-child(1) { grid-area: space1; }
+// .spacer:nth-child(2) { grid-area: space2; }
+// .aron_stage { grid-area: stage; }
+
+/* שולחנות */
+.table {
+  display: flex;
+  gap: 3px;
+  background: #f0f0f0;
+  padding: 3px;
+  border-radius: 3px;
+  border: 1px solid black;
+  width: fit-content;
+}
+
+/* כיסאות */
+.seat {
+  width: 40px;
+  height: 40px;
+  background-color: lightgray;
+  border: 1px solid black;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.seat.selected {
+  background-color: blue;
+  color: white;
+}
+
+/* ✅ התאמה למובייל - שמירה על הפריסה גם במסכים קטנים */
+@media screen and (max-width: 768px) {
+  .row {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:  
+    "col-left front-left-space  aron_stage    front-right-space col-right"
+    "col-left col-left_right    aron_stage    col-right-left    col-right"
+    "col-left back-left-space   aron_stage    back-right-space  col-right";
+    gap: 5px;
+  }
+
+  .seat {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 10px;
+  }
+
+  .spacer {
+    width: 30px; /* מעבר קטן יותר */
+    grid-area: spacer;
+  }
+
+  .submit-btn, .select-group-btn {
+    width: 90%;
+    margin: 10px;
+    padding: 8px;
+    font-size: 14px;
+  }
 }
 
 .submit-btn {
@@ -101,9 +179,11 @@
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.submit-btn:hover {
-  background-color: #c393f0;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+.select-group-btn {
+  width: 90%;
+  margin: 10px;
+  padding: 8px;
+  font-size: 14px;
 }
 
 .submit-container{
@@ -111,59 +191,17 @@
   justify-content: center;
 }
 
-
-.select-group-btn{
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #a7bffc;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s;
-  height: max-content;
-  border-radius: 30px;
-  margin: 30px;
-}
-.select-group-btn:hover{
-  background-color: #92a7eb;
-}
-
-
-.aron_stage{
-  display: flex;
-  flex-direction: column;
-}
-
-.left_right{
-  padding-top: 150px;
-}
-.right_left{
-  padding-top: 150px;
-}
-.wall{
-  height: 220px;
-  background-color: #6a6a6a;
-  width: 30px;
-}
-
-.bottom{
-  display: flex;
-  width: 100%;
-  justify-content: right;
-}
-
-.womens-aid{
-  width: 600px;
+.partition {
+  background: rgb(245, 175, 13);
   text-align: center;
-  justify-content: center;
-  flex-direction: column;
-  display: flex;
-  font-size: 50px;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 2px solid black;
+  width: 600px;
+  float: right;
 }
 
-
-.buttons{
-    display: flex;
-    flex-direction: column;
+.partition-container{
+  width: 100%;
 }
-
-

@@ -1,0 +1,168 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.spacer {
+  width: 80px; /* יצירת מעבר מרווח */
+}
+
+.table {
+  display: flex;
+  gap: 5px;
+  background: #f0f0f0;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.seat {
+  width: 40px;
+  height: 40px;
+  background-color: lightgray;
+  border: 1px solid black;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 14px;
+}
+
+.seat.selected {
+  background-color: blue;
+  color: white;
+}
+
+.aron-kodesh {
+  text-align: center;
+  background: darkgray;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+.stage {
+  background: #ddd;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 2px solid black;
+  margin: auto;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.partition {
+  background: yellow;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 2px solid black;
+  width: 600px;
+  float: right;
+}
+
+.partition-container{
+  width: 100%;
+}
+
+.submit-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #d8a7fc;
+  border: none;
+  cursor: pointer;
+  height: max-content;
+  border-radius: 8px;
+  margin: 30px;
+  width: 200px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #c393f0;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.submit-container{
+  display: flex;
+  justify-content: center;
+}
+
+
+.select-group-btn{
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #a7bffc;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+  height: max-content;
+  border-radius: 30px;
+  margin: 30px;
+}
+.select-group-btn:hover{
+  background-color: #92a7eb;
+}
+
+
+.aron_stage{
+  display: flex;
+  flex-direction: column;
+}
+
+.left_right{
+  padding-top: 150px;
+}
+.right_left{
+  padding-top: 150px;
+}
+.wall{
+  height: 220px;
+  background-color: #6a6a6a;
+  width: 30px;
+}
+
+.bottom{
+  display: flex;
+  width: 100%;
+  justify-content: right;
+}
+
+.womens-aid{
+  width: 600px;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  font-size: 50px;
+}
+
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+}
+
+
