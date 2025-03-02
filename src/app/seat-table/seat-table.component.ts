@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-seat-table',
@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './seat-table.component.html',
   styleUrl: './seat-table.component.scss'
 })
-
 export class SeatTableComponent {
   column1: any[] = [];
   column2: any[] = [];
@@ -15,6 +14,9 @@ export class SeatTableComponent {
   column4: any[] = [];
   firstRowLeft: any[] = [];
   firstRowRight: any[] = [];
+  note: string = ''; // הוספת משתנה להערה
+
+  @ViewChild('noteInput') noteInput!: ElementRef;
 
   constructor() {
     this.generateSeating();
@@ -23,8 +25,7 @@ export class SeatTableComponent {
   generateSeating() {
     let seatNumber = 1;
 
-    // עמודות נוספות...
-    const columnStructure = [8, 4, 5, 7]; // מספר השורות בכל עמודה
+    const columnStructure = [8, 4, 5, 7];
 
     [this.column1, this.column2, this.column3, this.column4].forEach((col, index) => {
       for (let i = 0; i < columnStructure[index]; i++) {
@@ -53,75 +54,78 @@ export class SeatTableComponent {
       .filter(seat => seat.selected)
       .map(seat => seat.number);
 
-    console.log("כיסאות שנבחרו:", selectedSeats);
-    alert("כיסאות שנבחרו: " + selectedSeats.join(", "));
+    this.note = this.noteInput.nativeElement.value;
+
+    console.log("כיסאות שנבחרו:", selectedSeats, "הערה:", this.note);
+    alert("כיסאות שנבחרו: " + selectedSeats.join(", ") + "\nהערה: " + this.note);
   }
 
-  selectGroup(group:number[]){
-    this.getAllSeats().forEach((seat)=>{
-      if (group.includes(seat.number)){
+  selectGroup(group: number[]) {
+    this.getAllSeats().forEach((seat) => {
+      if (group.includes(seat.number)) {
         seat.selected = true;
       }
     });
   }
 
-  crateArrayByRange(start:number, end:number, step:number=1){
-    return  Array.from({ length: Math.floor((end - start) / step) + 1 }, (_, i) => start + i * step);
+  crateArrayByRange(start: number, end: number, step: number = 1) {
+    return Array.from({ length: Math.floor((end - start) / step) + 1 }, (_, i) => start + i * step);
   }
 
-  selectAll(){
-    const rangeArray = this.crateArrayByRange(1,96);
-    this.selectGroup(rangeArray);
-  }
-
-  selectLeftColumn(){
-    const rangeArray = this.crateArrayByRange(1,32);
-    this.selectGroup(rangeArray);
-  }
-  selectLeftRightColumn(){
-    const rangeArray = this.crateArrayByRange(33,48);
-    this.selectGroup(rangeArray);
-  }
-  selectRightLeftColumn(){
-    const rangeArray = this.crateArrayByRange(49,68);
+  selectAll() {
+    const rangeArray = this.crateArrayByRange(1, 96);
     this.selectGroup(rangeArray);
   }
 
-  selectRightColumn(){
-    const rangeArray = this.crateArrayByRange(69,96);
+  selectLeftColumn() {
+    const rangeArray = this.crateArrayByRange(1, 32);
     this.selectGroup(rangeArray);
   }
 
-  selectWindows(){
-    const rangeLeft = this.crateArrayByRange(1,32,4);
+  selectLeftRightColumn() {
+    const rangeArray = this.crateArrayByRange(33, 48);
+    this.selectGroup(rangeArray);
+  }
+
+  selectRightLeftColumn() {
+    const rangeArray = this.crateArrayByRange(49, 68);
+    this.selectGroup(rangeArray);
+  }
+
+  selectRightColumn() {
+    const rangeArray = this.crateArrayByRange(69, 96);
+    this.selectGroup(rangeArray);
+  }
+
+  selectWindows() {
+    const rangeLeft = this.crateArrayByRange(1, 32, 4);
     this.selectGroup(rangeLeft);
-    const rangeRight = this.crateArrayByRange(72,96,4);
+    const rangeRight = this.crateArrayByRange(72, 96, 4);
     this.selectGroup(rangeRight);
   }
-  selectSpace(){
-    const range1 = this.crateArrayByRange(4,32,4);
+
+  selectSpace() {
+    const range1 = this.crateArrayByRange(4, 32, 4);
     this.selectGroup(range1);
-    const range2 = this.crateArrayByRange(33,45,4);
+    const range2 = this.crateArrayByRange(33, 45, 4);
     this.selectGroup(range2);
-    const range3 = this.crateArrayByRange(36,48,4);
+    const range3 = this.crateArrayByRange(36, 48, 4);
     this.selectGroup(range3);
-    const range4 = this.crateArrayByRange(49,65,4);
+    const range4 = this.crateArrayByRange(49, 65, 4);
     this.selectGroup(range4);
-    const range5 = this.crateArrayByRange(52,68,4);
+    const range5 = this.crateArrayByRange(52, 68, 4);
     this.selectGroup(range5);
-    const range6 = this.crateArrayByRange(69,93,4);
+    const range6 = this.crateArrayByRange(69, 93, 4);
     this.selectGroup(range6);
   }
 
-  clearAll(){
-    this.getAllSeats().forEach((seat)=>{
-        seat.selected = false;
+  clearAll() {
+    this.getAllSeats().forEach((seat) => {
+      seat.selected = false;
     });
   }
 
-  getAllSeats(){
+  getAllSeats() {
     return [this.column1.flat(), this.column2.flat(), this.column3.flat(), this.column4.flat()].flat();
   }
-
 }
-
