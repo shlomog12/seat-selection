@@ -2,34 +2,36 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
-  gap: 10px;
+  padding: 1vw;
+  gap: 1vw;
   width: 100%;
-  max-width: 1200px;
+  max-width: 120vw;
 }
 
 .aron-kodesh {
   text-align: center;
   background: darkgray;
-  padding: 10px;
+  padding: 1vw;
   font-weight: bold;
-  border-radius: 5px;
-  border: 2px solid black;
+  border-radius: 0.5vw;
+  border: 0.2vw solid black;
+  font-size: 1vw;
 }
 
 .stage {
   background: #ddd;
   text-align: center;
-  padding: 10px;
+  padding: 1vw;
   font-weight: bold;
-  border-radius: 5px;
-  border: 2px solid black;
+  border-radius: 0.5vw;
+  border: 0.2vw solid black;
   margin: auto;
-  width: 80px;
-  height: 80px;
+  width: 8vw;
+  height: 8vw;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  font-size: 1vw;
 }
 
 
@@ -37,18 +39,18 @@
 .row {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-    grid-template-areas: 
-    "col-left front-left-space  aron_stage    front-right-space col-right"
-    "col-left col-left_right    aron_stage    col-right-left    col-right"
-    "col-left back-left-space   aron_stage    back-right-space  col-right";
-  gap: 10px;
+  grid-template-areas: 
+    "col-left front-left-space aron_stage front-right-space col-right"
+    "col-left col-left_right aron_stage col-right-left col-right"
+    "col-left back-left-space aron_stage back-right-space col-right";
+  gap: 1vw;
   width: 100%;
   justify-content: center;
 }
 
 .space{
-  width: 200px;
-  height: 150px;
+  width: 20vw;
+  height: 15vw;
 }
 
 .front-left-space{
@@ -87,15 +89,12 @@
 .column{
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 1vw;
+  max-width: 20vw;
 }
 
 
-.wall{
-  height: 220px;
-  background-color: #6a6a6a;
-  width: 30px;
-}
+
 
 /* נגדיר לכל עמודה את המיקום שלה ב-Grid */
 // .column:nth-child(1) { grid-area: col1; }
@@ -109,24 +108,25 @@
 /* שולחנות */
 .table {
   display: flex;
-  gap: 3px;
+  gap: 0.3vw;
   background: #f0f0f0;
-  padding: 3px;
-  border-radius: 3px;
-  border: 1px solid black;
+  padding: 0.3vw;
+  border-radius: 0.3vw;
+  border: 0.1vw solid black;
   width: fit-content;
 }
 
 /* כיסאות */
 .seat {
-  width: 40px;
-  height: 40px;
+
+  width: 4vw; // גודל יחסי
+  height: 4vw;
+  line-height: 4vw;
+  font-size: 1vw;
   background-color: lightgray;
-  border: 1px solid black;
+  border: 0.1vw solid black;
   text-align: center;
-  line-height: 40px;
   cursor: pointer;
-  font-size: 14px;
   transition: 0.3s;
 }
 
@@ -136,54 +136,45 @@
 }
 
 /* ✅ התאמה למובייל - שמירה על הפריסה גם במסכים קטנים */
-@media screen and (max-width: 768px) {
-  .row {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-areas:  
-    "col-left front-left-space  aron_stage    front-right-space col-right"
-    "col-left col-left_right    aron_stage    col-right-left    col-right"
-    "col-left back-left-space   aron_stage    back-right-space  col-right";
-    gap: 5px;
-  }
+// @media screen and (max-width: 768px) {
+//   .row {
+//     grid-template-columns: repeat(5, 1fr); // עמודה אחת במובייל
+//     grid-template-areas:
+//       "col-left"
+//       "col-left_right"
+//       "aron_stage"
+//       "col-right-left"
+//       "col-right"
+//       "front-left-space"
+//       "front-right-space"
+//       "back-left-space"
+//       "back-right-space";
+//   }
 
-  .seat {
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    font-size: 10px;
-  }
-
-  .spacer {
-    width: 30px; /* מעבר קטן יותר */
-    grid-area: spacer;
-  }
-
-  .submit-btn, .select-group-btn {
-    width: 90%;
-    margin: 10px;
-    padding: 8px;
-    font-size: 14px;
-  }
-}
+//   // .space{
+//   //   display: none; // להעלים רווחים במובייל
+//   // }
+// }
 
 .submit-btn {
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 1vw 2vw;
+  font-size: 1vw;
   background-color: #d8a7fc;
   border: none;
   cursor: pointer;
   height: max-content;
-  border-radius: 8px;
-  margin: 30px;
-  width: 200px;
+  border-radius: 2vw;
+  margin: 3vw;
+  width: 20vw;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+
 .select-group-btn {
   width: 90%;
-  margin: 10px;
-  padding: 8px;
-  font-size: 14px;
+  margin: 1vw;
+  padding: 0.8vw;
+  font-size: 1vw;
 }
 
 .submit-container{
@@ -194,14 +185,24 @@
 .partition {
   background: rgb(245, 175, 13);
   text-align: center;
-  padding: 10px;
   font-weight: bold;
-  border-radius: 5px;
-  border: 2px solid black;
-  width: 600px;
-  float: right;
+  border-radius: 0.5vw;
+  border: 0.2vw solid black;
+  width: 60vw;
+  height: 2vw;
+  font-size: 1vw;
+}
+
+.wall{
+  height: 22vw;
+  background-color: #6a6a6a;
+  width: 2vw;
+  margin-left: auto;
 }
 
 .partition-container{
+  float: right;
+  display: flex;
+  justify-content: center;
   width: 100%;
 }
