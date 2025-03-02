@@ -73,14 +73,40 @@
      <div class="partition">מחיצה</div>
      <div class="buttons">
       <div class="select-group-btns">
-        <button class="select-group-btn btn" (click)="clearAll()">נקה הכל</button>
-        <button class="select-group-btn btn" (click)="selectLeftColumn()">עמודה שמאל</button>
-        <button class="select-group-btn btn" (click)="selectLeftRightColumn()">עמודה אמצע שמאל</button>
-        <button class="select-group-btn btn" (click)="selectSpace()"> ליד מעבר </button>
-        <button class="select-group-btn btn" (click)="selectWindows()">כיסא ליד חלון</button>
-        <button class="select-group-btn btn" (click)="selectRightLeftColumn()">עמודה אמצע ימין</button>
-        <button class="select-group-btn btn" (click)="selectRightColumn()">עמודה ימין</button>
-        <button class="select-group-btn btn" (click)="selectAll()">בחר הכל </button>
+        <button class="select-group-btn btn" (click)="selectAll()">
+          <fa-icon [icon]="faCheckDouble"></fa-icon>
+          בחר הכל
+        </button>
+        <button class="select-group-btn btn" (click)="selectLeftColumn()">
+          <fa-icon [icon]="faArrowLeft"></fa-icon>
+          עמודה שמאל
+        </button>
+        <button class="select-group-btn btn" (click)="selectLeftRightColumn()">
+          <fa-icon [icon]="faArrowLeft"></fa-icon>
+          <fa-icon [icon]="faColumns"></fa-icon>
+          עמודה אמצע שמאל
+        </button>
+        <button class="select-group-btn btn" (click)="selectSpace()">
+          <fa-icon [icon]="faWalking"></fa-icon>
+          ליד מעבר
+        </button>
+        <button class="select-group-btn btn" (click)="selectWindows()">
+          <fa-icon [icon]="faWindowMaximize"></fa-icon>
+          כיסא ליד חלון
+        </button>
+        <button class="select-group-btn btn" (click)="selectRightLeftColumn()">
+          <fa-icon [icon]="faColumns"></fa-icon>
+          <fa-icon [icon]="faArrowRight"></fa-icon>
+          עמודה אמצע ימין
+        </button>
+        <button class="select-group-btn btn" (click)="selectRightColumn()">
+          <fa-icon [icon]="faArrowRight"></fa-icon>
+          עמודה ימין
+        </button>
+        <button class="select-group-btn btn" (click)="clearAll()">
+          <fa-icon [icon]="faTrashAlt"></fa-icon>
+          נקה הכל
+        </button>
       </div>
     </div>
        <div class="submit-container">

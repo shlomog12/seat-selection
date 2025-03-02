@@ -1,13 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faTrashAlt, faArrowLeft, faColumns, faWalking, faWindowMaximize, faArrowRight, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-seat-table',
-  imports: [CommonModule],
+  imports: [CommonModule, FontAwesomeModule],
   templateUrl: './seat-table.component.html',
   styleUrl: './seat-table.component.scss'
 })
 export class SeatTableComponent {
+
+  faTrashAlt = faTrashAlt;
+  faArrowLeft = faArrowLeft;
+  faColumns = faColumns;
+  faWalking = faWalking;
+  faWindowMaximize = faWindowMaximize;
+  faArrowRight = faArrowRight;
+  faCheckDouble = faCheckDouble;
+
+
+
   column1: any[] = [];
   column2: any[] = [];
   column3: any[] = [];

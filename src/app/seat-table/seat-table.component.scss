@@ -139,12 +139,7 @@
 }
 
 
-.select-group-btn {
-  width: 90%;
-  margin: 0.5vw;
-  padding: 0.6vw;
-  font-size: 1vw;
-}
+
 
 
 
@@ -169,7 +164,7 @@
 }
 
 .partition {
-  background: rgb(245, 175, 13);
+  background: rgb(181 144 58);
   text-align: center;
   font-weight: bold;
   border-radius: 0.5vw;
@@ -214,4 +209,29 @@
 
 .select-group-btns{
   grid-area: select-group-btns;
+}
+
+.select-group-btn {
+  justify-content: end;
+  display: flex;
+  width: 90%;
+  margin: 0.5vw;
+  padding: 0.8vw 1.2vw;
+  padding-right: 13vw;
+  font-size: 1vw;
+  border-radius: 0.5vw;
+  border: none;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.3sease;
+
+  &:hover {
+    background-color: #d0d0d0;
+  }
+
+
+}
+
+fa-icon{
+  margin-right: 2vw;
 }
