@@ -67,8 +67,10 @@
 
    <div class="bottom">
     <div class="form-group">
-      <label for="full-name">שם מלא:</label>
-      <input  [(ngModel)]="fullName"  type="text" id="full-name" placeholder="הכנס את שמך המלא">
+      <div class="input-name">
+        <label for="full-name">שם מלא:</label>
+        <input  [(ngModel)]="fullName"  type="text" id="full-name" placeholder="הכנס את שמך המלא">
+      </div>
       <div class="note-container">
         <textarea [(ngModel)]="noteInput"  class="note-input" placeholder="הוסף הערה..."></textarea>
       </div>
@@ -114,7 +116,7 @@
       </div>
     </div>
        <div class="submit-container">
-    <button class="submit-btn btn" (click)="submitSelection()">הגש</button>
+    <button class="submit-btn btn" (click)="submitSelection()">הגש טופס</button>
   </div>
    </div>
 
