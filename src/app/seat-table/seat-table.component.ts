@@ -123,6 +123,7 @@ export class SeatTableComponent {
     this.getAllSeats().forEach((seat) => {
       seat.selected = false;
     });
+    this.noteInput.nativeElement.value = '';
   }
 
   getAllSeats() {
