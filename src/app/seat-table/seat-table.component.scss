@@ -34,8 +34,6 @@
   font-size: 1vw;
 }
 
-
-/* ✅ כאן נגדיר את הפריסה עם Grid Areas */
 .row {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -93,9 +91,6 @@
   max-width: 20vw;
 }
 
-
-
-/* שולחנות */
 .table {
   display: flex;
   gap: 0.3vw;
@@ -106,10 +101,8 @@
   width: fit-content;
 }
 
-/* כיסאות */
 .seat {
-
-  width: 4vw; // גודל יחסי
+  width: 4vw;
   height: 4vw;
   line-height: 4vw;
   font-size: 1vw;
@@ -121,14 +114,15 @@
 }
 
 .seat.selected {
-  background-color: blue;
+  background-color: dodgerblue;
   color: white;
 }
 
 .submit-btn {
   padding: 1vw 2vw;
   font-size: 1vw;
-  background-color: #d8a7fc;
+  color: white;
+  background-color: #5c8c8c;
   border: none;
   cursor: pointer;
   height: max-content;
@@ -138,22 +132,15 @@
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-
-
-
-
-
 .bottom{
   display: grid;
   grid-template-areas: 
     "select-group-btns wall partition"
     "select-group-btns wall note"
     "select-group-btns b submit";
-  grid-template-columns: 40vw 1vw 48vw;
-  grid-template-rows: 2vw 13vw 12vw;
-  gap: 1vw; /* השארנו רק את ה-gap האופקי */
-  width: 100%;
-  justify-content: right;
+  grid-template-columns: 32vw 1vw 27vw;
+  grid-template-rows: 2vw 14vw 12vw;
+  gap: 1vw;
   width: 100%;
 }
 
@@ -161,6 +148,7 @@
   display: flex;
   justify-content: center;
   grid-area: submit;
+  width: 60vw;
 }
 
 .partition {
@@ -183,17 +171,13 @@
   grid-area: wall;
 }
 
-
-
-/* סגנונות להערה */
 .note-container {
   padding: 1vw;
   box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  grid-area: note;
+  border: 0.1vw solid #ccc;
+  border-radius: 0.4vw;
   min-width: 3vw;
-  align-self: start; /* יישור למעלה */
+  margin: 0vw 1vw;
 }
 
 .note-input {
@@ -201,9 +185,9 @@
   width: 100%;
   padding: 0.5vw;
   box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical; // לאפשר שינוי גודל אנכי
+  border: 0.1vw solid #ccc;
+  border-radius: 0.4vw;
+  resize: vertical;
   font-size: 1vw;
 }
 
@@ -221,12 +205,12 @@
   font-size: 1vw;
   border-radius: 0.5vw;
   border: none;
-  background-color: #e0e0e0;
+  background-color: lightpink;
   cursor: pointer;
   transition: background-color 0.3sease;
 
   &:hover {
-    background-color: #d0d0d0;
+    background-color: rgb(250, 152, 167);
   }
 
 
@@ -234,4 +218,34 @@
 
 fa-icon{
   margin-right: 2vw;
+}
+
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vw;
+  float: right;
+  direction: rtl;
+  grid-area: note;
+  width: 60vw;
+}
+label {
+  font-size: 1.8vw;
+  color: #333;
+  margin: 1vw;
+  margin-bottom: 0vw;
+}
+input {
+  padding: 1vw;
+  border: 0.2vw solid #3498db;
+  border-radius: 0.5vw;
+  font-size: 1.6vw;
+  outline: none;
+  transition: 0.3s;
+  margin: 1vw;
+}
+input:focus {
+  border-color: #2980b9;
+  box-shadow: 0vw 0vw 0.8vw rgba(52, 152, 219, 0.5);
 }

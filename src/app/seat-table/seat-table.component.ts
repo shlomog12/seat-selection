@@ -1,16 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrashAlt, faArrowLeft, faColumns, faWalking, faWindowMaximize, faArrowRight, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-seat-table',
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule, FormsModule],
   templateUrl: './seat-table.component.html',
   styleUrl: './seat-table.component.scss'
 })
 export class SeatTableComponent {
-
+  fullName: string = '';
+  noteInput: string = '';
   faTrashAlt = faTrashAlt;
   faArrowLeft = faArrowLeft;
   faColumns = faColumns;
@@ -27,9 +29,6 @@ export class SeatTableComponent {
   column4: any[] = [];
   firstRowLeft: any[] = [];
   firstRowRight: any[] = [];
-  note: string = ''; // הוספת משתנה להערה
-
-  @ViewChild('noteInput') noteInput!: ElementRef;
 
   constructor() {
     this.generateSeating();
@@ -66,11 +65,18 @@ export class SeatTableComponent {
     ]
       .filter(seat => seat.selected)
       .map(seat => seat.number);
-
-    this.note = this.noteInput.nativeElement.value;
-
-    console.log("כיסאות שנבחרו:", selectedSeats, "הערה:", this.note);
-    alert("כיסאות שנבחרו: " + selectedSeats.join(", ") + "\nהערה: " + this.note);
+    
+    if (!selectedSeats || selectedSeats.length < 3){
+      alert("יש לבחור לפחות 3 מקומות");
+      return;
+    }
+      console.log("שם מלא", this.fullName ,"כיסאות שנבחרו:", selectedSeats, "הערה:", this.noteInput);
+    alert(
+      "==== שם מלא ====\n" + this.fullName +
+      "\n\n==== כיסאות שנבחרו ====\n" + selectedSeats.join(", ") +
+      "\n\n==== הערה ====\n" + this.noteInput
+    );
+    
   }
 
   selectGroup(group: number[]) {
@@ -136,7 +142,8 @@ export class SeatTableComponent {
     this.getAllSeats().forEach((seat) => {
       seat.selected = false;
     });
-    this.noteInput.nativeElement.value = '';
+    this.noteInput = '';
+    this.fullName = '';
   }
 
   getAllSeats() {
