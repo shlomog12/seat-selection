@@ -70,6 +70,10 @@ export class SeatTableComponent {
       alert("יש לבחור לפחות 3 מקומות");
       return;
     }
+    if (!this.fullName || this.fullName.length < 4){
+      alert("חובה להגיש את הטופס עם שם מלא");
+      return;
+    }
       console.log("שם מלא", this.fullName ,"כיסאות שנבחרו:", selectedSeats, "הערה:", this.noteInput);
     alert(
       "==== שם מלא ====\n" + this.fullName +
