@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { SelectionModel } from './selection.model';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrashAlt, faArrowLeft, faColumns, faWalking, faWindowMaximize, faArrowRight, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
-
+import { DataService } from './data.service';
 @Component({
   selector: 'app-seat-table',
   imports: [CommonModule, FontAwesomeModule, FormsModule],
@@ -20,7 +21,7 @@ export class SeatTableComponent {
   faWindowMaximize = faWindowMaximize;
   faArrowRight = faArrowRight;
   faCheckDouble = faCheckDouble;
-
+  selectedSeats!: number[]
 
 
   column1: any[] = [];
@@ -30,8 +31,9 @@ export class SeatTableComponent {
   firstRowLeft: any[] = [];
   firstRowRight: any[] = [];
 
-  constructor() {
+  constructor(private dataService: DataService) { 
     this.generateSeating();
+    this.dataService.init();
   }
 
   generateSeating() {
@@ -55,7 +57,8 @@ export class SeatTableComponent {
   }
 
   submitSelection() {
-    const selectedSeats = [
+
+    this.selectedSeats = [
       ...this.column1.flat(),
       ...this.column2.flat(),
       ...this.column3.flat(),
@@ -66,7 +69,7 @@ export class SeatTableComponent {
       .filter(seat => seat.selected)
       .map(seat => seat.number);
     
-    if (!selectedSeats || selectedSeats.length < 3){
+    if (!this.selectedSeats || this.selectedSeats.length < 3){
       alert("יש לבחור לפחות 3 מקומות");
       return;
     }
@@ -74,13 +77,25 @@ export class SeatTableComponent {
       alert("חובה להגיש את הטופס עם שם מלא");
       return;
     }
-      console.log("שם מלא", this.fullName ,"כיסאות שנבחרו:", selectedSeats, "הערה:", this.noteInput);
+      console.log("שם מלא", this.fullName ,"כיסאות שנבחרו:", this.selectedSeats, "הערה:", this.noteInput);
     alert(
       "==== שם מלא ====\n" + this.fullName +
-      "\n\n==== כיסאות שנבחרו ====\n" + selectedSeats.join(", ") +
+      "\n\n==== כיסאות שנבחרו ====\n" + this.selectedSeats.join(", ") +
       "\n\n==== הערה ====\n" + this.noteInput
     );
+
+    this.sendData();
     
+  }
+
+  async sendData() {
+    const newSelection: SelectionModel = {
+      fullname: this.fullName,
+      comment: this.noteInput,
+      selected: this.selectedSeats  // Selected seat IDs
+    };
+    
+    this.dataService.insertData(newSelection);
   }
 
   selectGroup(group: number[]) {
@@ -153,4 +168,5 @@ export class SeatTableComponent {
   getAllSeats() {
     return [this.column1.flat(), this.column2.flat(), this.column3.flat(), this.column4.flat()].flat();
   }
+
 }
