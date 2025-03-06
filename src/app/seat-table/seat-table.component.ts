@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrashAlt, faArrowLeft, faColumns, faWalking, faWindowMaximize, faArrowRight, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
 import { DataService } from './data.service';
+import { DialogComponent } from '../dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-seat-table',
   imports: [CommonModule, FontAwesomeModule, FormsModule],
@@ -31,7 +33,7 @@ export class SeatTableComponent {
   firstRowLeft: any[] = [];
   firstRowRight: any[] = [];
 
-  constructor(private dataService: DataService) { 
+  constructor(private dataService: DataService, private dialog: MatDialog) { 
     this.generateSeating();
     this.dataService.init();
   }
@@ -56,7 +58,11 @@ export class SeatTableComponent {
     seat.selected = !seat.selected;
   }
 
-  submitSelection() {
+  hasAtLeastTwoWords(str:string) {
+    return str.trim().split(/\s+/).length >= 2;
+}
+
+  async submitSelection() {
 
     this.selectedSeats = [
       ...this.column1.flat(),
@@ -73,19 +79,13 @@ export class SeatTableComponent {
       alert("יש לבחור לפחות 3 מקומות");
       return;
     }
-    if (!this.fullName || this.fullName.length < 4){
+    if (!this.fullName || this.fullName.length < 4 || !this.hasAtLeastTwoWords(this.fullName)){
       alert("חובה להגיש את הטופס עם שם מלא");
       return;
     }
-      console.log("שם מלא", this.fullName ,"כיסאות שנבחרו:", this.selectedSeats, "הערה:", this.noteInput);
-    alert(
-      "==== שם מלא ====\n" + this.fullName +
-      "\n\n==== כיסאות שנבחרו ====\n" + this.selectedSeats.join(", ") +
-      "\n\n==== הערה ====\n" + this.noteInput
-    );
-
-    this.sendData();
-    
+    console.log("שם מלא", this.fullName ,"כיסאות שנבחרו:", this.selectedSeats, "הערה:", this.noteInput);
+    this.openDialog();
+    // window.close();
   }
 
   async sendData() {
@@ -94,8 +94,12 @@ export class SeatTableComponent {
       comment: this.noteInput,
       selected: this.selectedSeats  // Selected seat IDs
     };
-    
-    this.dataService.insertData(newSelection);
+    try {
+      await this.dataService.insertData(newSelection);
+    } catch (error) {
+      console.log(error);
+      alert("חלה שגיאה אנא פנה לועד בית הכנסת");
+    } 
   }
 
   selectGroup(group: number[]) {
@@ -168,5 +172,33 @@ export class SeatTableComponent {
   getAllSeats() {
     return [this.column1.flat(), this.column2.flat(), this.column3.flat(), this.column4.flat()].flat();
   }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '50vw', // יחידות רספונסיביות
+      data: {
+        title: '📋 פרטי הבחירה',
+        message: `
+      <strong>🔹 שם מלא:</strong> ${this.fullName} <br><br>
+      <strong>🎟️ כיסאות שנבחרו:</strong> ${this.selectedSeats.join(", ")} <br><br>
+      <strong>📝 הערה:</strong> ${this.noteInput} <br><br>
+      ✅ תודה רבה ובהצלחה!
+        `
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result) {
+        console.log('✅ אישור נלחץ');
+        await this.sendData();
+        console.log("data sended");
+        window.close();
+      } else {
+        console.log('❌ ביטול נלחץ');
+      }
+    });
+  }
+  
+
 
 }
