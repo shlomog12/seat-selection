@@ -205,32 +205,26 @@ export class SeatTableComponent {
   async toggleAdminMode() {
 
     this.getAllSeats().forEach((seat) => {
-      seat.message = '';
+      seat.names = [];
     });
     const selections = await this.getAllSelections();
     console.log(selections);
     selections.forEach((selection: SelectionModel) => {
       console.log(selection.fullname);
-      if (selection.fullname === 'שלמה גליק' || selection.fullname === 'יצחק לזר') {
-
-        return
-
-      }
       selection.selected.forEach((seatNumber) => { 
         
 
         this.getAllSeats().forEach((seat) => {
           if (seat.number === seatNumber) {
             console.log(seat.number);
-            seat.message = `${seat.message} ${selection.fullname}`;
+            seat.names.push(selection.fullname);
           }
         });
       });
     });
 
     this.getAllSeats().forEach((seat) => {
-        console.log(seat.number, seat.message);
-      
+        console.log(seat.number, seat.names);
     });
     
   }
@@ -238,13 +232,5 @@ export class SeatTableComponent {
   async getAllSelections(): Promise<any[]> { 
     return await this.dataService.getAllSelections();
   }
-
-
-  getSeatElementById(id: string) {
-
-  }
-
-
-
 
 }

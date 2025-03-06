@@ -11,14 +11,17 @@
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
-          @if( seat.message){
-            <span>
-              {{ seat.message }}
-            </span>
-          }@else {
-            <span>
-              {{ seat.number }}
-            </span>
+          <span>
+            {{ seat.number }}
+          </span>
+          <br>
+          @if( seat.names){
+            @for(name of seat.names; track name){
+              <span>
+                {{ name }}
+              </span>
+              <br>
+            }
           }
         </div>
       </div>
@@ -34,14 +37,17 @@
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
-          @if( seat.message){
-            <span>
-              {{ seat.message }}
-            </span>
-          }@else {
-            <span>
-              {{ seat.number }}
-            </span>
+          <span>
+            {{ seat.number }}
+          </span>
+          <br>
+          @if( seat.names){
+            @for(name of seat.names; track name){
+              <span>
+                {{ name }}
+              </span>
+              <br>
+            }
           }
         </div>
       </div>
@@ -63,14 +69,17 @@
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
-          @if( seat.message){
-            <span>
-              {{ seat.message }}
-            </span>
-          }@else {
-            <span>
-              {{ seat.number }}
-            </span>
+          <span>
+            {{ seat.number }}
+          </span>
+          <br>
+          @if( seat.names){
+            @for(name of seat.names; track name){
+              <span>
+                {{ name }}
+              </span>
+              <br>
+            }
           }
         </div>
       </div>
@@ -83,14 +92,17 @@
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
-          @if( seat.message){
-            <span>
-              {{ seat.message }}
-            </span>
-          }@else {
-            <span>
-              {{ seat.number }}
-            </span>
+          <span>
+            {{ seat.number }}
+          </span>
+          <br>
+          @if( seat.names){
+            @for(name of seat.names; track name){
+              <span>
+                {{ name }}
+              </span>
+              <br>
+            }
           }
         </div>
       </div>
