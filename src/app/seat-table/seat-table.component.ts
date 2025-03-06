@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { SelectionModel } from './selection.model';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -14,6 +14,8 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './seat-table.component.scss'
 })
 export class SeatTableComponent {
+
+
   fullName: string = '';
   noteInput: string = '';
   faTrashAlt = faTrashAlt;
@@ -24,6 +26,7 @@ export class SeatTableComponent {
   faArrowRight = faArrowRight;
   faCheckDouble = faCheckDouble;
   selectedSeats!: number[]
+  @Input() isAdmin: boolean = false;
 
 
   column1: any[] = [];
@@ -199,6 +202,49 @@ export class SeatTableComponent {
     });
   }
   
+  async toggleAdminMode() {
+
+    this.getAllSeats().forEach((seat) => {
+      seat.message = '';
+    });
+    const selections = await this.getAllSelections();
+    console.log(selections);
+    selections.forEach((selection: SelectionModel) => {
+      console.log(selection.fullname);
+      if (selection.fullname === 'שלמה גליק' || selection.fullname === 'יצחק לזר') {
+
+        return
+
+      }
+      selection.selected.forEach((seatNumber) => { 
+        
+
+        this.getAllSeats().forEach((seat) => {
+          if (seat.number === seatNumber) {
+            console.log(seat.number);
+            seat.message = `${seat.message} ${selection.fullname}`;
+          }
+        });
+      });
+    });
+
+    this.getAllSeats().forEach((seat) => {
+        console.log(seat.number, seat.message);
+      
+    });
+    
+  }
+
+  async getAllSelections(): Promise<any[]> { 
+    return await this.dataService.getAllSelections();
+  }
+
+
+  getSeatElementById(id: string) {
+
+  }
+
+
 
 
 }

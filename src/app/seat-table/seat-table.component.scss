@@ -102,8 +102,8 @@
 }
 
 .seat {
-  width: 4vw;
-  height: 4vw;
+  width: 100px;
+  height: 100px;
   line-height: 4vw;
   font-size: 1vw;
   background-color: lightgray;
@@ -257,4 +257,11 @@ input {
 input:focus {
   border-color: #2980b9;
   box-shadow: 0vw 0vw 0.8vw rgba(52, 152, 219, 0.5);
+}
+
+.seat > span {
+    color: red;
+    position: absolute; /* מיקום יחסי למסגרת הקרובה עם position שאינו static */
+    z-index: 9999; /* מספר גבוה שמביא את האלמנט לקדמת המסך */
+    background: none;
 }

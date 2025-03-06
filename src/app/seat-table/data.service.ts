@@ -6,6 +6,10 @@ import { SelectionModel } from './selection.model';
   providedIn: 'root'
 })
 export class DataService {
+  async getAllSelections(): Promise<any[]> {
+    const selections = await this.supabase.from('seatSelectionTable').select('*');
+    return selections.data ?? [];
+  }
 
   constructor() { }
   private supabase!: SupabaseClient<any, "public", any>;
@@ -42,6 +46,4 @@ export class DataService {
         console.error('Error fetching JSON:', error);
     }
 }
-
-
 }
