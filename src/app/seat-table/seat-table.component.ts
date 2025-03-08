@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { SelectionModel } from './selection.model';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -13,7 +13,9 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './seat-table.component.html',
   styleUrl: './seat-table.component.scss'
 })
-export class SeatTableComponent {
+export class SeatTableComponent implements OnInit {
+
+
   fullName: string = '';
   noteInput: string = '';
   faTrashAlt = faTrashAlt;
@@ -24,6 +26,7 @@ export class SeatTableComponent {
   faArrowRight = faArrowRight;
   faCheckDouble = faCheckDouble;
   selectedSeats!: number[]
+  @Input() isAdmin: boolean = false;
 
 
   column1: any[] = [];
@@ -35,7 +38,13 @@ export class SeatTableComponent {
 
   constructor(private dataService: DataService, private dialog: MatDialog) { 
     this.generateSeating();
-    this.dataService.init();
+    // this.dataService.init();
+  }
+
+ngOnInit() {
+    if (this.isAdmin) {
+      this.toggleAdminMode();
+    }
   }
 
   generateSeating() {
@@ -199,6 +208,37 @@ export class SeatTableComponent {
     });
   }
   
+  async toggleAdminMode() {
 
+    this.getAllSeats().forEach((seat) => {
+      seat.names = [];
+    });
+    console.log("admin mode");
+    console.log(this.getAllSeats());
+    const selections = await this.getAllSelections();
+    console.log(selections);
+    selections.forEach((selection: SelectionModel) => {
+      console.log(selection.fullname);
+      selection.selected.forEach((seatNumber) => { 
+        
+
+        this.getAllSeats().forEach((seat) => {
+          if (seat.number === seatNumber) {
+            console.log(seat.number);
+            seat.names.push(selection.fullname);
+          }
+        });
+      });
+    });
+
+    this.getAllSeats().forEach((seat) => {
+        console.log(seat.number, seat.names);
+    });
+    
+  }
+
+  async getAllSelections(): Promise<any[]> { 
+    return await this.dataService.getAllSelections();
+  }
 
 }

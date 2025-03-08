@@ -1,8 +1,5 @@
 <div class="container">
 
-  
-
-
   <!-- שאר השורות -->
   <div class="row">
     <div class="column col-left">
@@ -11,7 +8,16 @@
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
-          {{ seat.number }}
+          <span>
+            {{ seat.number }}
+          </span>
+          @if( seat.names){
+            @for(name of seat.names; track name){
+              <span class="name">
+                {{ name }}
+              </span>
+            }
+          }
         </div>
       </div>
     </div>
@@ -26,7 +32,16 @@
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
-          {{ seat.number }}
+          <span>
+            {{ seat.number }}
+          </span>
+          @if( seat.names){
+            @for(name of seat.names; track name){
+              <span class="name">
+                {{ name }}
+              </span>
+            }
+          }
         </div>
       </div>
     </div>
@@ -47,7 +62,16 @@
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
-          {{ seat.number }}
+          <span>
+            {{ seat.number }}
+          </span>
+          @if( seat.names){
+            @for(name of seat.names; track name){
+              <span class="name">
+                {{ name }}
+              </span>
+            }
+          }
         </div>
       </div>
     </div>
@@ -59,7 +83,16 @@
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
-          {{ seat.number }}
+          <span>
+            {{ seat.number }}
+          </span>
+          @if( seat.names){
+            @for(name of seat.names; track name){
+              <span class="name">
+                {{ name }}
+              </span>
+            }
+          }
         </div>
       </div>
     </div>
