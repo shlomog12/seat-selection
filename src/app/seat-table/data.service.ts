@@ -14,9 +14,15 @@ export class DataService {
   }
 
   private async init() {
-    const configJson = await this.getConfig();
+    const configJson = await this.getConfig2();
     this.supabase = createClient(configJson.supabaseUrl, configJson.supabaseKey);
     this.initialized = true;
+  }
+  getConfig2() {
+    return {
+      "supabaseUrl": "https://tpxktqfxmafbpsmxhbep.supabase.co",
+      "supabaseKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRweGt0cWZ4bWFmYnBzbXhoYmVwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjczNzYsImV4cCI6MjA1NjYwMzM3Nn0.Lxd3qS4YWVvPGghVV3hh9fwCsdQ3NtDpG3TSRSYSvH4"
+    };
   }
 
   private async ensureInitialized() {
