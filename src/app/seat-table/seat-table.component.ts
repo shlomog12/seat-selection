@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { SelectionModel } from './selection.model';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -13,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './seat-table.component.html',
   styleUrl: './seat-table.component.scss'
 })
-export class SeatTableComponent {
+export class SeatTableComponent implements OnInit {
 
 
   fullName: string = '';
@@ -38,7 +38,13 @@ export class SeatTableComponent {
 
   constructor(private dataService: DataService, private dialog: MatDialog) { 
     this.generateSeating();
-    this.dataService.init();
+    // this.dataService.init();
+  }
+
+ngOnInit() {
+    if (this.isAdmin) {
+      this.toggleAdminMode();
+    }
   }
 
   generateSeating() {
@@ -207,6 +213,8 @@ export class SeatTableComponent {
     this.getAllSeats().forEach((seat) => {
       seat.names = [];
     });
+    console.log("admin mode");
+    console.log(this.getAllSeats());
     const selections = await this.getAllSelections();
     console.log(selections);
     selections.forEach((selection: SelectionModel) => {

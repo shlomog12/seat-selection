@@ -1,8 +1,5 @@
 <div class="container">
 
-  @if (isAdmin){
-    <input type="checkbox" (change)="toggleAdminMode()">
-  }
   <!-- שאר השורות -->
   <div class="row">
     <div class="column col-left">
@@ -14,13 +11,11 @@
           <span>
             {{ seat.number }}
           </span>
-          <br>
           @if( seat.names){
             @for(name of seat.names; track name){
               <span class="name">
                 {{ name }}
               </span>
-              <br>
             }
           }
         </div>
@@ -40,13 +35,11 @@
           <span>
             {{ seat.number }}
           </span>
-          <br>
           @if( seat.names){
             @for(name of seat.names; track name){
               <span class="name">
                 {{ name }}
               </span>
-              <br>
             }
           }
         </div>
@@ -72,13 +65,11 @@
           <span>
             {{ seat.number }}
           </span>
-          <br>
           @if( seat.names){
             @for(name of seat.names; track name){
               <span class="name">
                 {{ name }}
               </span>
-              <br>
             }
           }
         </div>
@@ -95,13 +86,11 @@
           <span>
             {{ seat.number }}
           </span>
-          <br>
           @if( seat.names){
             @for(name of seat.names; track name){
               <span class="name">
                 {{ name }}
               </span>
-              <br>
             }
           }
         </div>

@@ -110,6 +110,9 @@
   text-align: center;
   cursor: pointer;
   transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .seat.selected {
@@ -258,9 +261,7 @@ input:focus {
   box-shadow: 0vw 0vw 0.8vw rgba(52, 152, 219, 0.5);
 }
 
-.seat > span {
-    color: red;
-    z-index: 999;
+.name{
     font-size: 0.5vw;
     line-height: 1vw;
 }
