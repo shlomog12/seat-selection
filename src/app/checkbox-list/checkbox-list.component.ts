@@ -11,7 +11,11 @@ import { SelectionModel } from '../seat-table/selection.model';
   styleUrls: ['./checkbox-list.component.scss']
 })
 export class CheckboxListComponent {
-clearAll() {
+  isShowComments: boolean = false;
+  showComments(){
+    this.isShowComments = !this.isShowComments;
+  }
+  clearAll() {
     this.selectedItemsMap = {};
     this.onSelectionChange();
 }

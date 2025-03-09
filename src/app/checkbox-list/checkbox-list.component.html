@@ -1,15 +1,25 @@
 <div class="checkbox-list-container">
-    <h2>בחר תושבים</h2>
-    <br />
-    <button class="btnGroup" (click)="selectAll()">בחר הכל</button>
-    <button class="btnGroup"  (click)="clearAll()">נקה הכל</button>
-    @for (item of items; track $index) {
-      {{ item.fullname }} <input 
+  <h2>בחר תושבים</h2>
+  <br />
+  <button class="btnGroup" (click)="selectAll()">בחר הכל</button>
+  <button class="btnGroup" (click)="clearAll()">נקה הכל</button>
+  <button class="btnGroup" (click)="showComments()">הצג/הסתר הערות</button>
+
+  @for (item of items; track $index) {
+    <div class="checkbox-row">
+      <span class="checkbox-label">
+        {{ item.fullname }} 
+        @if(item.comment && item.comment.length > 0 && isShowComments) {
+          <span class="comment">:{{ item.comment }}</span>
+        }
+      </span>
+      <input 
         class="checkbox-item"
-          type="checkbox" 
-          [value]="item.fullname" 
-          [(ngModel)]="selectedItemsMap[item.fullname]"
-          (change)="onSelectionChange()"
-        /> 
-      } 
+        type="checkbox" 
+        [value]="item.fullname" 
+        [(ngModel)]="selectedItemsMap[item.fullname]"
+        (change)="onSelectionChange()"
+      /> 
+    </div>
+  }
 </div>

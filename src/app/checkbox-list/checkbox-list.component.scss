@@ -3,8 +3,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
 }
 
 .btnGroup{
@@ -15,3 +15,23 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* רווח בין האלמנטים */
+    margin-bottom: 5px;
+  }
+  
+  .checkbox-label {
+    flex-grow: 1; /* מרחיב את הטקסט כדי שלא יידחף */
+    // white-space: nowrap; /* מונע ירידת שורה */
+    font-weight: bold;
+    
+  }
+  
+  .comment {
+    color: rgb(108, 108, 108);
+    font-weight: 300;
+    margin-left: 5px;
+  }
