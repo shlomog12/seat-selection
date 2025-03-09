@@ -1,1 +1,5 @@
-<app-seat-table [isAdmin]="true"></app-seat-table>
+<app-seat-table [isAdmin]="true" [filtersUsers]="filtersUsers" (onUsersChanged)="updateUsers($event)"></app-seat-table>
+<app-checkbox-list 
+  [items]="userNames"
+  (selectionChanged)="onSelectionChanged($event)">
+</app-checkbox-list>

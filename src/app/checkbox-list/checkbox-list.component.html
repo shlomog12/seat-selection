@@ -1,0 +1,15 @@
+<div class="checkbox-list-container">
+    <h2>בחר תושבים</h2>
+    <br />
+    <button class="btnGroup" (click)="selectAll()">בחר הכל</button>
+    <button class="btnGroup"  (click)="clearAll()">נקה הכל</button>
+    @for (item of items; track $index) {
+      {{ item.fullname }} <input 
+        class="checkbox-item"
+          type="checkbox" 
+          [value]="item.fullname" 
+          [(ngModel)]="selectedItemsMap[item.fullname]"
+          (change)="onSelectionChange()"
+        /> 
+      } 
+</div>

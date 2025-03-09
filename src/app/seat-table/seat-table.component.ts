@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { SelectionModel } from './selection.model';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -15,7 +15,6 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class SeatTableComponent implements OnInit {
 
-
   fullName: string = '';
   noteInput: string = '';
   faTrashAlt = faTrashAlt;
@@ -27,7 +26,8 @@ export class SeatTableComponent implements OnInit {
   faCheckDouble = faCheckDouble;
   selectedSeats!: number[]
   @Input() isAdmin: boolean = false;
-
+  @Output() onUsersChanged = new EventEmitter<SelectionModel[]>();
+  @Input() filtersUsers !: SelectionModel[];
 
   column1: any[] = [];
   column2: any[] = [];
@@ -35,15 +35,22 @@ export class SeatTableComponent implements OnInit {
   column4: any[] = [];
   firstRowLeft: any[] = [];
   firstRowRight: any[] = [];
+  selections!: SelectionModel[];
 
   constructor(private dataService: DataService, private dialog: MatDialog) { 
     this.generateSeating();
     // this.dataService.init();
   }
 
-ngOnInit() {
-    if (this.isAdmin) {
-      this.toggleAdminMode();
+  ngOnInit() {
+      if (this.isAdmin) {
+        this.toggleAdminMode();
+      }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['filtersUsers'] && changes['filtersUsers'].currentValue) {
+      this.showSeatNames();
     }
   }
 
@@ -215,16 +222,25 @@ ngOnInit() {
     });
     console.log("admin mode");
     console.log(this.getAllSeats());
-    const selections = await this.getAllSelections();
-    console.log(selections);
-    selections.forEach((selection: SelectionModel) => {
-      console.log(selection.fullname);
-      selection.selected.forEach((seatNumber) => { 
-        
+    this.selections = await this.getAllSelections();
+    this.onUsersChanged.emit(this.selections);
+    console.log(this.selections);
+    
+    
+    
 
+    
+  }
+
+  showSeatNames() {
+    this.getAllSeats().forEach((seat) => {
+      seat.names = [];
+    });
+
+    this.filtersUsers.forEach((selection: SelectionModel) => {
+      selection.selected.forEach((seatNumber) => { 
         this.getAllSeats().forEach((seat) => {
           if (seat.number === seatNumber) {
-            console.log(seat.number);
             seat.names.push(selection.fullname);
           }
         });
@@ -234,7 +250,6 @@ ngOnInit() {
     this.getAllSeats().forEach((seat) => {
         console.log(seat.number, seat.names);
     });
-    
   }
 
   async getAllSelections(): Promise<any[]> { 
