@@ -9,8 +9,24 @@
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
           <span>
-            {{ seat.number }}
+                        @if (seat.title){
+              {{ seat.title }}
+            }
+            @else {
+              {{ seat.number }}
+            }
           </span>
+
+          <input *ngIf="isAdmin && seat.editing"
+          [(ngModel)]="seat.newTitle"
+class="edit-seat"
+
+
+
+          (blur)="saveSeatNumber(seat)"
+          (keyup.enter)="saveSeatNumber(seat)">
+
+
           @if( seat.names){
             @for(name of seat.names; track name){
               <span class="name">
@@ -32,9 +48,22 @@
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
+
           <span>
-            {{ seat.number }}
+                        @if (seat.title){
+              {{ seat.title }}
+            }
+            @else {
+              {{ seat.number }}
+            }
           </span>
+
+          <input *ngIf="isAdmin && seat.editing"
+          [(ngModel)]="seat.newTitle"
+          class="edit-seat"
+          (blur)="saveSeatNumber(seat)"
+          (keyup.enter)="saveSeatNumber(seat)">
+
           @if( seat.names){
             @for(name of seat.names; track name){
               <span class="name">
@@ -63,8 +92,19 @@
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
           <span>
-            {{ seat.number }}
+
           </span>
+          
+          <input *ngIf="isAdmin && seat.editing"
+          [(ngModel)]="seat.newTitle"
+class="edit-seat"
+
+
+
+          (blur)="saveSeatNumber(seat)"
+          (keyup.enter)="saveSeatNumber(seat)">
+
+          
           @if( seat.names){
             @for(name of seat.names; track name){
               <span class="name">
@@ -84,8 +124,23 @@
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
           <span>
-            {{ seat.number }}
+            @if (seat.title){
+              {{ seat.title }}
+            }
+            @else {
+              {{ seat.number }}
+            }
           </span>
+
+          <input *ngIf="isAdmin && seat.editing"
+          [(ngModel)]="seat.newTitle"
+class="edit-seat"
+
+
+
+          (blur)="saveSeatNumber(seat)"
+          (keyup.enter)="saveSeatNumber(seat)">
+
           @if( seat.names){
             @for(name of seat.names; track name){
               <span class="name">

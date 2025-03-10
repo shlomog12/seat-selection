@@ -72,6 +72,9 @@ export class SeatTableComponent implements OnInit {
 
   toggleSeat(seat: any) {
     seat.selected = !seat.selected;
+    if (this.isAdmin){
+      this.editSeatNumber(seat);
+    }
   }
 
   hasAtLeastTwoWords(str:string) {
@@ -226,10 +229,6 @@ export class SeatTableComponent implements OnInit {
     this.onUsersChanged.emit(this.selections);
     console.log(this.selections);
     
-    
-    
-
-    
   }
 
   showSeatNames() {
@@ -254,6 +253,29 @@ export class SeatTableComponent implements OnInit {
 
   async getAllSelections(): Promise<any[]> { 
     return await this.dataService.getAllSelections();
+  }
+
+
+  editSeatNumber(seat: any) {
+    if (this.isAdmin) {
+      seat.editing = true;
+      seat.newTitle = seat.number; // שמור את המספר הנוכחי לעריכה
+    }
+  }
+  
+  saveSeatNumber(seat: any) {
+    if (this.isAdmin && seat.newTitle) {
+      // const newTitle = Number(seat.newTitle);
+      
+      // בדיקה האם המספר החדש כבר קיים
+      const seatExists = this.getAllSeats().some(s => s.number === seat.newTitle);
+      if (!seatExists) {
+        seat.title = seat.newTitle;
+      } else {
+        alert("מספר כיסא זה כבר תפוס!");
+      }
+    }
+    seat.editing = false; // סיום מצב העריכה
   }
 
 }
