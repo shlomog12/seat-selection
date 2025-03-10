@@ -9,7 +9,7 @@
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
           <span>
-                        @if (seat.title){
+            @if (seat.title){
               {{ seat.title }}
             }
             @else {
@@ -19,10 +19,7 @@
 
           <input *ngIf="isAdmin && seat.editing"
           [(ngModel)]="seat.newTitle"
-class="edit-seat"
-
-
-
+          class="edit-seat"
           (blur)="saveSeatNumber(seat)"
           (keyup.enter)="saveSeatNumber(seat)">
 
@@ -50,7 +47,7 @@ class="edit-seat"
           id="{{seat.number}}">
 
           <span>
-                        @if (seat.title){
+           @if (seat.title){
               {{ seat.title }}
             }
             @else {
@@ -92,15 +89,17 @@ class="edit-seat"
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
           <span>
-
+            @if (seat.title){
+              {{ seat.title }}
+            }
+            @else {
+              {{ seat.number }}
+            }
           </span>
           
           <input *ngIf="isAdmin && seat.editing"
           [(ngModel)]="seat.newTitle"
 class="edit-seat"
-
-
-
           (blur)="saveSeatNumber(seat)"
           (keyup.enter)="saveSeatNumber(seat)">
 
