@@ -1,8 +1,5 @@
 <div class="container">
 
-  
-
-
   <!-- שאר השורות -->
   <div class="row">
     <div class="column col-left">
@@ -11,7 +8,29 @@
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
-          {{ seat.number }}
+          <span>
+            @if (seat.title){
+              {{ seat.title }}
+            }
+            @else {
+              {{ seat.number }}
+            }
+          </span>
+
+          <input *ngIf="isAdmin && seat.editing"
+          [(ngModel)]="seat.newTitle"
+          class="edit-seat"
+          (blur)="saveSeatNumber(seat)"
+          (keyup.enter)="saveSeatNumber(seat)">
+
+
+          @if( seat.names){
+            @for(name of seat.names; track name){
+              <span class="name">
+                {{ name }}
+              </span>
+            }
+          }
         </div>
       </div>
     </div>
@@ -26,7 +45,29 @@
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
-          {{ seat.number }}
+
+          <span>
+           @if (seat.title){
+              {{ seat.title }}
+            }
+            @else {
+              {{ seat.number }}
+            }
+          </span>
+
+          <input *ngIf="isAdmin && seat.editing"
+          [(ngModel)]="seat.newTitle"
+          class="edit-seat"
+          (blur)="saveSeatNumber(seat)"
+          (keyup.enter)="saveSeatNumber(seat)">
+
+          @if( seat.names){
+            @for(name of seat.names; track name){
+              <span class="name">
+                {{ name }}
+              </span>
+            }
+          }
         </div>
       </div>
     </div>
@@ -47,7 +88,29 @@
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
-          {{ seat.number }}
+          <span>
+            @if (seat.title){
+              {{ seat.title }}
+            }
+            @else {
+              {{ seat.number }}
+            }
+          </span>
+          
+          <input *ngIf="isAdmin && seat.editing"
+          [(ngModel)]="seat.newTitle"
+class="edit-seat"
+          (blur)="saveSeatNumber(seat)"
+          (keyup.enter)="saveSeatNumber(seat)">
+
+          
+          @if( seat.names){
+            @for(name of seat.names; track name){
+              <span class="name">
+                {{ name }}
+              </span>
+            }
+          }
         </div>
       </div>
     </div>
@@ -59,7 +122,31 @@
           [ngClass]="{ 'selected': seat.selected }"
           (click)="toggleSeat(seat)"
           id="{{seat.number}}">
-          {{ seat.number }}
+          <span>
+            @if (seat.title){
+              {{ seat.title }}
+            }
+            @else {
+              {{ seat.number }}
+            }
+          </span>
+
+          <input *ngIf="isAdmin && seat.editing"
+          [(ngModel)]="seat.newTitle"
+class="edit-seat"
+
+
+
+          (blur)="saveSeatNumber(seat)"
+          (keyup.enter)="saveSeatNumber(seat)">
+
+          @if( seat.names){
+            @for(name of seat.names; track name){
+              <span class="name">
+                {{ name }}
+              </span>
+            }
+          }
         </div>
       </div>
     </div>
@@ -119,5 +206,7 @@
     <button class="submit-btn btn" (click)="submitSelection()">הגש טופס</button>
   </div>
    </div>
+
+
 
 </div>

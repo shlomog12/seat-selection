@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { SelectionModel } from './selection.model';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -13,7 +13,8 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './seat-table.component.html',
   styleUrl: './seat-table.component.scss'
 })
-export class SeatTableComponent {
+export class SeatTableComponent implements OnInit {
+
   fullName: string = '';
   noteInput: string = '';
   faTrashAlt = faTrashAlt;
@@ -24,7 +25,9 @@ export class SeatTableComponent {
   faArrowRight = faArrowRight;
   faCheckDouble = faCheckDouble;
   selectedSeats!: number[]
-
+  @Input() isAdmin: boolean = false;
+  @Output() onUsersChanged = new EventEmitter<SelectionModel[]>();
+  @Input() filtersUsers !: SelectionModel[];
 
   column1: any[] = [];
   column2: any[] = [];
@@ -32,10 +35,23 @@ export class SeatTableComponent {
   column4: any[] = [];
   firstRowLeft: any[] = [];
   firstRowRight: any[] = [];
+  selections!: SelectionModel[];
 
   constructor(private dataService: DataService, private dialog: MatDialog) { 
     this.generateSeating();
-    this.dataService.init();
+    // this.dataService.init();
+  }
+
+  ngOnInit() {
+      if (this.isAdmin) {
+        this.toggleAdminMode();
+      }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['filtersUsers'] && changes['filtersUsers'].currentValue) {
+      this.showSeatNames();
+    }
   }
 
   generateSeating() {
@@ -56,6 +72,9 @@ export class SeatTableComponent {
 
   toggleSeat(seat: any) {
     seat.selected = !seat.selected;
+    if (this.isAdmin){
+      this.editSeatNumber(seat);
+    }
   }
 
   hasAtLeastTwoWords(str:string) {
@@ -199,6 +218,64 @@ export class SeatTableComponent {
     });
   }
   
+  async toggleAdminMode() {
 
+    this.getAllSeats().forEach((seat) => {
+      seat.names = [];
+    });
+    console.log("admin mode");
+    console.log(this.getAllSeats());
+    this.selections = await this.getAllSelections();
+    this.onUsersChanged.emit(this.selections);
+    console.log(this.selections);
+    
+  }
+
+  showSeatNames() {
+    this.getAllSeats().forEach((seat) => {
+      seat.names = [];
+    });
+
+    this.filtersUsers.forEach((selection: SelectionModel) => {
+      selection.selected.forEach((seatNumber) => { 
+        this.getAllSeats().forEach((seat) => {
+          if (seat.number === seatNumber) {
+            seat.names.push(selection.fullname);
+          }
+        });
+      });
+    });
+
+    this.getAllSeats().forEach((seat) => {
+        console.log(seat.number, seat.names);
+    });
+  }
+
+  async getAllSelections(): Promise<any[]> { 
+    return await this.dataService.getAllSelections();
+  }
+
+
+  editSeatNumber(seat: any) {
+    if (this.isAdmin) {
+      seat.editing = true;
+      seat.newTitle = seat.number; // שמור את המספר הנוכחי לעריכה
+    }
+  }
+  
+  saveSeatNumber(seat: any) {
+    if (this.isAdmin && seat.newTitle) {
+      // const newTitle = Number(seat.newTitle);
+      
+      // בדיקה האם המספר החדש כבר קיים
+      const seatExists = this.getAllSeats().some(s => s.number === seat.newTitle);
+      if (!seatExists) {
+        seat.title = seat.newTitle;
+      } else {
+        alert("מספר כיסא זה כבר תפוס!");
+      }
+    }
+    seat.editing = false; // סיום מצב העריכה
+  }
 
 }
