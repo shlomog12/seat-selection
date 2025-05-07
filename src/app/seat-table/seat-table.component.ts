@@ -81,7 +81,15 @@ export class SeatTableComponent implements OnInit {
     return str.trim().split(/\s+/).length >= 2;
 }
 
-  async submitSelection() {
+submitSelection() {
+  this.foo();
+}
+
+  async submitSelection2() {
+    if (this.isAdmin){
+      this.submitSelectionAdmin();
+      return;
+    }
 
     this.selectedSeats = [
       ...this.column1.flat(),
@@ -105,6 +113,11 @@ export class SeatTableComponent implements OnInit {
     console.log("שם מלא", this.fullName ,"כיסאות שנבחרו:", this.selectedSeats, "הערה:", this.noteInput);
     this.openDialog();
     // window.close();
+  }
+  submitSelectionAdmin() {
+    const seatNames = this.getAllSeats().map((seat) => {
+      return { number: seat.number, title: seat.title, selected: seat.selected };
+    });
   }
 
   async sendData() {
@@ -259,23 +272,487 @@ export class SeatTableComponent implements OnInit {
   editSeatNumber(seat: any) {
     if (this.isAdmin) {
       seat.editing = true;
-      seat.newTitle = seat.number; // שמור את המספר הנוכחי לעריכה
+      // seat.newTitle = seat.number; // שמור את המספר הנוכחי לעריכה
     }
   }
-  
+
+
   saveSeatNumber(seat: any) {
+    console.log("aa");
     if (this.isAdmin && seat.newTitle) {
-      // const newTitle = Number(seat.newTitle);
-      
-      // בדיקה האם המספר החדש כבר קיים
-      const seatExists = this.getAllSeats().some(s => s.number === seat.newTitle);
-      if (!seatExists) {
-        seat.title = seat.newTitle;
-      } else {
-        alert("מספר כיסא זה כבר תפוס!");
-      }
+      seat.title = seat.newTitle;
+      seat.selected = true;
     }
     seat.editing = false; // סיום מצב העריכה
+  }
+
+  foo(){
+    const sh = this.getShibuz();
+    let counter = 0;
+    this.getAllSeats().forEach((seat) => {
+      if (this.isAdmin) {
+        seat.title = sh.find((s) => s.number === seat.number)?.title;
+      }
+      seat.selected = sh.find((s) => s.number === seat.number)?.selected;
+      if (seat.selected) {
+        counter++;
+      }
+    });
+    console.log("סהכ מקומות שנבחרו:", counter);
+  }
+
+  getShibuz(){
+    return [
+      {
+          "number": 1,
+          "title": "חסן",
+          "selected": true
+      },
+      {
+          "number": 2,
+          "title": "נגר",
+          "selected": true
+      },
+      {
+          "number": 3,
+          "title": "ברעד",
+          "selected": true
+      },
+      {
+          "number": 4,
+          "title": "רטה",
+          "selected": true
+      },
+      {
+          "number": 5,
+          "selected": false
+      },
+      {
+          "number": 6,
+          "title": "אזולאי נתן",
+          "selected": true
+      },
+      {
+          "number": 7,
+          "title": "הלוי",
+          "selected": true
+      },
+      {
+          "number": 8,
+          "title": "כהן משה",
+          "selected": true
+      },
+      {
+          "number": 9,
+          "title": "ברטפלד",
+          "selected": true
+      },
+      {
+          "number": 10,
+          "selected": false
+      },
+      {
+          "number": 11,
+          "title": "יהושע",
+          "selected": true
+      },
+      {
+          "number": 12,
+          "title": "אהרוני נעם",
+          "selected": true
+      },
+      {
+          "number": 13,
+          "selected": false
+      },
+      {
+          "number": 14,
+          "title": "ברזילי",
+          "selected": true
+      },
+      {
+          "number": 15,
+          "selected": false
+      },
+      {
+          "number": 16,
+          "title": "סימן טוב",
+          "selected": true
+      },
+      {
+          "number": 17,
+          "selected": false
+      },
+      {
+          "number": 18,
+          "selected": false
+      },
+      {
+          "number": 19,
+          "title": "לרנר",
+          "selected": true
+      },
+      {
+          "number": 20,
+          "title": "לרנר",
+          "selected": true
+      },
+      {
+          "number": 21,
+          "title": "אזולאי שמואל",
+          "selected": true
+      },
+      {
+          "number": 22,
+          "selected": false
+      },
+      {
+          "number": 23,
+          "selected": false
+      },
+      {
+          "number": 24,
+          "title": "חיים",
+          "selected": true
+      },
+      {
+          "number": 25,
+          "title": "סנדרס",
+          "selected": true
+      },
+      {
+          "number": 26,
+          "selected": false
+      },
+      {
+          "number": 27,
+          "title": "דניאלי",
+          "selected": true
+      },
+      {
+          "number": 28,
+          "title": "יגל",
+          "selected": true
+      },
+      {
+          "number": 29,
+          "title": "זר",
+          "selected": true
+      },
+      {
+          "number": 30,
+          "selected": false
+      },
+      {
+          "number": 31,
+          "title": "גליק",
+          "selected": true
+      },
+      {
+        "number": 32,
+        "title": "אהרוני אמיתי",
+        "selected": true
+      },
+      {
+          "number": 33,
+          "title": "מרגלית",
+          "selected": true
+      },
+      {
+          "number": 34,
+          "title": "מרגלית",
+          "selected": true
+      },
+      {
+          "number": 35,
+          "title": "מרגלית",
+          "selected": true
+      },
+      {
+          "number": 36,
+          "title": "רבינוביץ",
+          "selected": true
+      },
+      {
+          "number": 37,
+          "title": "קאפח מתניה",
+          "selected": true
+      },
+      {
+          "number": 38,
+          "selected": false
+      },
+      {
+          "number": 39,
+          "title": "בוסי",
+          "selected": true
+      },
+      {
+          "number": 40,
+          "title": "נפש",
+          "selected": true
+      },
+      {
+          "number": 41,
+          "title": "שטראוס",
+          "selected": true
+      },
+      {
+          "number": 42,
+          "selected": false
+      },
+      {
+          "number": 43,
+          "selected": false
+      },
+      {
+          "number": 44,
+          "title": "שוועל",
+          "selected": true
+      },
+      {
+          "number": 45,
+          "title": "שטרן",
+          "selected": true
+      },
+      {
+          "number": 46,
+          "selected": false
+      },
+      {
+          "number": 47,
+          "selected": false
+      },
+      {
+          "number": 48,
+          "title": "עמרם",
+          "selected": true
+      },
+      {
+          "number": 49,
+          "title": "אהרוני יהונתן",
+          "selected": true
+      },
+      {
+          "number": 50,
+          "selected": false
+      },
+      {
+          "number": 51,
+          "selected": false
+      },
+      {
+          "number": 52,
+          "title": "אפרתי",
+          "selected": true
+      },
+      {
+          "number": 53,
+          "title": "כהן חיים",
+          "selected": true
+      },
+      {
+          "number": 54,
+          "title": "בלטמן",
+          "selected": true
+      },
+      {
+          "number": 55,
+          "title": "בוגנים",
+          "selected": true
+      },
+      {
+          "number": 56,
+          "title": "אזולאי חננאל",
+          "selected": true
+      },
+      {
+          "number": 57,
+          "title": "אונגר",
+          "selected": true
+      },
+      {
+          "number": 58,
+          "title": "לזר",
+          "selected": true
+      },
+      {
+          "number": 59,
+          "title": "שטריך",
+          "selected": true
+      },
+      {
+          "number": 60,
+          "title": "סימקוביץ",
+          "selected": true
+      },
+      {
+          "number": 61,
+          "title": "מרדכי",
+          "selected": true
+      },
+      {
+          "number": 62,
+          "title": "דהן",
+          "selected": true
+      },
+      {
+          "number": 63,
+          "selected": false
+      },
+      {
+          "number": 64,
+          "title": "לסינגר",
+          "selected": true
+      },
+      {
+          "number": 65,
+          "title": "קאפח אלעד",
+          "selected": true
+      },
+      {
+          "number": 66,
+          "selected": false
+      },
+      {
+        "number": 67,
+        "selected": false
+      },
+      {
+          "number": 68,
+          "title": "כהן יאר",
+          "selected": true
+      },
+      {
+          "number": 69,
+          "title": "פרל",
+          "selected": true
+      },
+      {
+          "number": 70,
+          "title": "בן אלי",
+          "selected": true
+      },
+      {
+          "number": 71,
+          "title": "בן אלי",
+          "selected": true
+      },
+      {
+          "number": 72,
+          "title": "בן אלי",
+          "selected": true
+      },
+      {
+          "number": 73,
+          "title": "סלמה",
+          "selected": true
+      },
+      {
+          "number": 74,
+          "selected": false
+      },
+      {
+          "number": 75,
+          "selected": false
+      },
+      {
+          "number": 76,
+          "title": "בן יאיר",
+          "selected": true
+      },
+      {
+          "number": 77,
+          "title": "זית",
+          "selected": true
+      },
+      {
+          "number": 78,
+          "selected": false
+      },
+      {
+          "number": 79,
+          "selected": false
+      },
+      {
+          "number": 80,
+          "title": "גדליוביץ",
+          "selected": true
+      },
+      {
+          "number": 81,
+          "title": "ריבלין",
+          "selected": true
+      },
+      {
+          "number": 82,
+          "title": "חדד",
+          "selected": true
+      },
+      {
+          "number": 83,
+          "selected": false
+      },
+      {
+          "number": 84,
+          "title": "פאטשינו",
+          "selected": true
+      },
+      {
+          "number": 85,
+          "title": "כהן עמוס",
+          "selected": true
+      },
+      {
+          "number": 86,
+          "title": "כהן עמוס",
+          "selected": true
+      },
+      {
+          "number": 87,
+          "title": "כהן עמוס",
+          "selected": true
+      },
+      {
+          "number": 88,
+          "selected": false
+      },
+      {
+          "number": 89,
+          "title": "רקנטי",
+          "selected": true
+      },
+      {
+          "number": 90,
+          "selected": false
+      },
+      {
+          "number": 91,
+          "selected": false
+      },
+      {
+          "number": 92,
+          "selected": false
+      },
+      {
+          "number": 93,
+          "title": "לנגרמן",
+          "selected": true
+      },
+      {
+          "number": 94,
+          "selected": false
+      },
+      {
+          "number": 95,
+          "selected": false
+      },
+      {
+          "number": 96,
+          "title": "לביא",
+          "selected": true
+      }
+  ];
   }
 
 }

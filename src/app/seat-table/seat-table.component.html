@@ -22,8 +22,6 @@
           class="edit-seat"
           (blur)="saveSeatNumber(seat)"
           (keyup.enter)="saveSeatNumber(seat)">
-
-
           @if( seat.names){
             @for(name of seat.names; track name){
               <span class="name">
@@ -99,7 +97,7 @@
           
           <input *ngIf="isAdmin && seat.editing"
           [(ngModel)]="seat.newTitle"
-class="edit-seat"
+          class="edit-seat"
           (blur)="saveSeatNumber(seat)"
           (keyup.enter)="saveSeatNumber(seat)">
 
@@ -133,13 +131,9 @@ class="edit-seat"
 
           <input *ngIf="isAdmin && seat.editing"
           [(ngModel)]="seat.newTitle"
-class="edit-seat"
-
-
-
+          class="edit-seat"
           (blur)="saveSeatNumber(seat)"
           (keyup.enter)="saveSeatNumber(seat)">
-
           @if( seat.names){
             @for(name of seat.names; track name){
               <span class="name">
@@ -207,6 +201,8 @@ class="edit-seat"
   </div>
    </div>
 
+
+   
 
 
 </div>
