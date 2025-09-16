@@ -103,14 +103,16 @@
 
 .seat {
   width: 4vw;
-  height: 4vw;
-  line-height: 4vw;
+  min-height: 4vw;
   font-size: 1vw;
   background-color: lightgray;
   border: 0.1vw solid black;
   text-align: center;
   cursor: pointer;
   transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .seat.selected {
@@ -257,4 +259,20 @@ input {
 input:focus {
   border-color: #2980b9;
   box-shadow: 0vw 0vw 0.8vw rgba(52, 152, 219, 0.5);
+}
+
+.name{
+    font-size: 0.5vw;
+    line-height: 1vw;
+}
+
+.edit-seat{
+  border-radius: 0.5vw;
+  outline: none;
+  transition: 0.3s;
+  margin-left: 0.2vw;
+  font-size: 2vw;
+  margin-right: 0.2vw;
+  text-align: center;
+  font-size: 1vw;
 }
